@@ -4,8 +4,10 @@ export const template = Template()
   .fromTemplate('mcp-gateway') 
   .addMcpServer([
     'exa',
-    'perplexityAsk', // FIXED: Changed from 'perplexity-ask'
-    'resend'
+    'perplexityAsk',
+    'resend',
+    'memory',
+    'sequentialthinking'
   ])
   .setEnvs({
     EXA_API_KEY: process.env.EXA_API_KEY!,
@@ -15,4 +17,4 @@ export const template = Template()
     REPLY_TO_EMAIL_ADDRESSES: process.env.SENDER_EMAIL!
   });
 
-export const alias = 'signl-v1';
+export const alias = 'signl-v5-autonomous';

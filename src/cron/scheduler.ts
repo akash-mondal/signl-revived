@@ -1,8 +1,8 @@
 import cron from 'node-cron';
 import { JobManager } from './storage';
-import { executeWarRoom } from '../agents'; // Correct function name
+import { executeDeepIntelligence } from '../deep-intelligence'; // UPDATED IMPORT
 import { RECURRING_TEMPLATES } from './templates';
-import { WarRoomMissionContext, Frequency, RecurringJob } from '../types'; // Correct context type import
+import { WarRoomMissionContext, Frequency, RecurringJob } from '../types';
 
 function calculateNextRun(freq: Frequency): string {
   const now = new Date();
@@ -31,7 +31,6 @@ function calculateNextRun(freq: Frequency): string {
   return next.toISOString();
 }
 
-// Function to generate a simplified context for the recurring job run
 function generateMissionContext(job: RecurringJob): WarRoomMissionContext {
     const template = RECURRING_TEMPLATES[job.templateId];
 
@@ -52,7 +51,7 @@ function generateMissionContext(job: RecurringJob): WarRoomMissionContext {
             currentFundingStage: "Seed"
         },
         strategy: {
-            coreValueProposition: template.name, // Use template name for value prop in cron context
+            coreValueProposition: template.name,
             problemBeingSolved: template.description,
             idealCustomerProfile: "Founders",
             northStarMetric: "Retention",
@@ -76,20 +75,20 @@ function generateMissionContext(job: RecurringJob): WarRoomMissionContext {
             knownWeaknessInternal: "None",
             topReasonForChurn: "Cost",
             topReasonForLossInSales: "Features"
-        },
-        targets: {
+          },
+          targets: {
             competitorNames: [job.targetName],
             specificRumorsToVerify: job.customQuery ? [job.customQuery] : [],
             perceivedThreatLevel: "Existential (Kill or be Killed)",
             specificQuestionsForAgent: job.customQuery ? [job.customQuery] : [],
             blacklistedDomains: []
-        },
-        outputPreferences: {
+          },
+          outputPreferences: {
             reportTone: "Ruthless VC (Critique)",
             includeRawSources: true,
             focusAreas: ["Pricing", "Product", "Sentiment"],
             language: "English"
-        }
+          }
     };
 }
 
@@ -105,10 +104,10 @@ export function startScheduler() {
 
     for (const job of dueJobs) {
       try {
-        
         const missionContext = generateMissionContext(job);
 
-        await executeWarRoom(
+        // Updated to use the new engine
+        await executeDeepIntelligence(
           "RECURRING-" + job.id, 
           missionContext
         );
