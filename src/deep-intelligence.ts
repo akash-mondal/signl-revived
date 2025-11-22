@@ -333,7 +333,7 @@ async function generateStrategicRecommendationsWithThinking(mcpClient: Client, t
   return recs;
 }
 
-export async function executeDeepIntelligence(missionId: string, context: WarRoomMissionContext, durationMinutes: number = 45) {
+export async function executeDeepIntelligence(missionId: string, context: WarRoomMissionContext, durationMinutes: number = 3) {
   console.log(`\n🚀 STARTING MISSION ${missionId} (${durationMinutes} min)`);
   
   const startTime = new Date();
